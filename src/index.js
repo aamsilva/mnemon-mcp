@@ -81,5 +81,51 @@ server.tool("forget", "Soft-delete de um insight (arquiva, nunca apaga definitiv
     return { content: [{ type: "text", text: JSON.stringify(d) }] };
   });
 
+server.tool("gc", "Garbage collection — lista insights não-imunes com importância abaixo do limiar (candidatos a arquivo).",
+  { threshold: z.number().optional().describe("effective_importance abaixo do qual é candidato (default 0.5)"), limit: z.number().optional() },
+  async ({ threshold = 0.5, limit = 20 }) => {
+    const args = ["gc", "--threshold", String(threshold), "--limit", String(limit)];
+    const d = run(args);
+    return { content: [{ type: "text", text: JSON.stringify(d) }] };
+  });
+
+server.tool("import", "Ingestão em batch de memórias a partir de um draft JSON (schema_version '1'). Passa pelo write path completo: dedup, edges, embeddings.",
+  { draft: z.string().describe("Conteúdo do draft JSON (ver docs/IMPORT.md do mnemon)"), dry_run: z.boolean().optional().describe("validar sem escrever") },
+  async ({ draft, dry_run = false }) => {
+    const os = require("os");
+    const tmp = path.join(os.tmpdir(), `mnemon_draft_${Date.now()}.json`);
+    fs.writeFileSync(tmp, draft);
+    try {
+      const args = ["import", tmp];
+      if (dry_run) args.push("--dry-run");
+      const d = run(args);
+      return { content: [{ type: "text", text: JSON.stringify(d) }] };
+    } finally {
+      try { fs.unlinkSync(tmp); } catch { /* best-effort */ }
+    }
+  });
+
+server.tool("log", "Operações recentes (histórico de remembers/recalls no mnemon).",
+  { limit: z.number().optional() },
+  async ({ limit = 20 }) => {
+    const d = run(["log", "--limit", String(limit)]);
+    return { content: [{ type: "text", text: JSON.stringify(d) }] };
+  });
+
+server.tool("receipt", "Exporta um receipt de operações de memória (privacy-safe, sem conteúdo bruto).",
+  { limit: z.number().optional() },
+  async ({ limit = 20 }) => {
+    const d = run(["receipt", "--limit", String(limit)]);
+    return { content: [{ type: "text", text: JSON.stringify(d) }] };
+  });
+
+server.tool("viz", "Exporta o grafo de conhecimento (formato dot ou html) para visualização.",
+  { format: z.enum(["dot", "html"]).optional() },
+  async ({ format = "dot" }) => {
+    const args = ["viz", "--format", format];
+    const d = run(args);
+    return { content: [{ type: "text", text: JSON.stringify(d) }] };
+  });
+
 const transport = new StdioServerTransport();
 server.connect(transport).catch(e => { console.error("[mnemon-mcp]", e.message); process.exit(1); });

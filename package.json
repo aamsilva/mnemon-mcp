@@ -1,7 +1,7 @@
 {
   "name": "mnemon-mcp",
-  "version": "1.0.0",
-  "description": "MCP server para a memória mnemon — recall/remember/search/link/status via binário Go. Consumível por opencode, VS Code, Cursor, Antigravity, Claude Code e VPS (multi-máquina).",
+  "version": "1.1.0",
+  "description": "MCP server para a mem\u00f3ria mnemon \u2014 recall/remember/search/link/status via bin\u00e1rio Go. Consum\u00edvel por opencode, VS Code, Cursor, Antigravity, Claude Code e VPS (multi-m\u00e1quina).",
   "license": "MIT",
   "main": "src/index.js",
   "scripts": {
