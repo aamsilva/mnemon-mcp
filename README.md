@@ -92,3 +92,24 @@ Ver `LOAD_TEST.md` (chamadas concorrentes, latência p50/p95).
 - Repo **privado** (nunca tornar público — memória pessoal)
 - O server só lê/escreve na BD local do utilizador
 - `receipt` exporta operações sem conteúdo bruto (privacy-safe)
+
+## Uso via CLI bridge (scripts, cron, launchd) — v1.1.1
+
+Para que **todos os use cases passem pelo MCP** (não só o opencode), existe o bridge
+`bin/mnemon-mcp-cli.js` (symlink em `~/.opencode/bin/mnemon-mcp-cli`):
+
+```bash
+mnemon-mcp-cli recall "ARES fix" --limit 3      # recall via MCP
+mnemon-mcp-cli search "cloudflare 1010"         # search literal
+mnemon-mcp-cli remember "facto" --imp 4 --cat decision --source user --entities "a,b"
+mnemon-mcp-cli status                           # estatísticas
+mnemon-mcp-cli forget <id>                      # soft-delete
+```
+
+- **Fala JSON-RPC 2.0 com o MCP server via stdio** — mesmo caminho que o opencode.
+- **Fallback automático**: se o server falhar, cai para o binário Go direto
+  (resiliência — diretiva 16-Ago "usa sempre fallback locais").
+- **Scripts migrados** (16-Ago): `auto_evolve.py`, `mnemon_phase3.py`,
+  `mnemon_brief.py`, `mnemon_recall_fallback.py`, `mnemon_store.py`.
+- O MCP server agora aceita `entities` e `no_diff` no `remember`
+  (flags que o binário Go já suportava).

@@ -47,12 +47,14 @@ server.tool("search", "Pesquisa insights com scoring token-based (literal, sem e
   });
 
   server.tool("remember", "Guarda um novo insight (auto-cat, dedup, extração de entidades via binário Go).",
-  { content: z.string().describe("Conteúdo do insight"), cat: z.enum(["preference","decision","fact","insight","context","general"]).optional(), imp: z.number().optional().describe("Importância 1-5"), source: z.enum(["user","agent","external"]).optional().describe("origem"), tags: z.string().optional().describe("tags separadas por vírgula") },
-  async ({ content, cat, imp = 3, source, tags }) => {
+  { content: z.string().describe("Conteúdo do insight"), cat: z.enum(["preference","decision","fact","insight","context","general"]).optional(), imp: z.number().optional().describe("Importância 1-5"), source: z.enum(["user","agent","external"]).optional().describe("origem"), tags: z.string().optional().describe("tags separadas por vírgula"), entities: z.string().optional().describe("entidades separadas por vírgula (merged com auto-extraction)"), no_diff: z.boolean().optional().describe("skip duplicate/conflict detection") },
+  async ({ content, cat, imp = 3, source, tags, entities, no_diff }) => {
     const args = ["remember", content, "--imp", String(imp)];
     if (cat) args.push("--cat", cat);
     if (source) args.push("--source", source);
     if (tags) args.push("--tags", tags);
+    if (entities) args.push("--entities", entities);
+    if (no_diff) args.push("--no-diff");
     const d = run(args);
     return { content: [{ type: "text", text: JSON.stringify(d) }] };
   });
