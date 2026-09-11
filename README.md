@@ -117,3 +117,7 @@ mnemon-mcp-cli forget <id>                      # soft-delete
 ## Requisito
 
 Binário Go do [mnemon core](https://github.com/mnemon-dev/mnemon) (Apache-2.0). [fork/deploy nosso](https://github.com/aamsilva/mnemon) — branch `patch/max-insights-10000` (auto-prune não deve apagar insights reais em uso intensivo).
+
+## Avaliação externa
+
+Prompt de avaliação estruturado (para Codex/ChatGPT): [docs/CODEX_EVAL_PROMPT.md](docs/CODEX_EVAL_PROMPT.md)

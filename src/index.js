@@ -11,6 +11,7 @@ const { z } = require("zod");
 const { execFileSync } = require("child_process");
 const path = require("path");
 const fs = require("fs");
+const os = require("os");
 
 const pkg = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "package.json"), "utf8"));
 const MNEMON = process.env.MNEMON_BIN || path.join(os.homedir(), ".opencode/bin/mnemon");
