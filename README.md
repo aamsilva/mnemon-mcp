@@ -120,4 +120,4 @@ Binário Go do [mnemon core](https://github.com/mnemon-dev/mnemon) (Apache-2.0).
 
 ## Avaliação externa
 
-Prompt de avaliação estruturado (para Codex/ChatGPT): [docs/CODEX_EVAL_PROMPT.md](docs/CODEX_EVAL_PROMPT.md)
+Prompt de avaliação técnica adversarial v2 (para Codex/ChatGPT): [docs/CODEX_EVAL_PROMPT.md](docs/CODEX_EVAL_PROMPT.md)
