@@ -113,3 +113,7 @@ mnemon-mcp-cli forget <id>                      # soft-delete
   `mnemon_brief.py`, `mnemon_recall_fallback.py`, `mnemon_store.py`.
 - O MCP server agora aceita `entities` e `no_diff` no `remember`
   (flags que o binário Go já suportava).
+
+## Requisito
+
+Binário Go do [mnemon core](https://github.com/mnemon-dev/mnemon) (Apache-2.0). [fork/deploy nosso](https://github.com/aamsilva/mnemon) — branch `patch/max-insights-10000` (auto-prune não deve apagar insights reais em uso intensivo).
