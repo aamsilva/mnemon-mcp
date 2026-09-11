@@ -13,7 +13,7 @@ MCP server para a memória **mnemon** (MAGMA four-graph). Camada fina Node sobre
 │  mnemon-mcp (Node, src/index.js)  ← 12 tools
 │     │  execFileSync (~60s timeout, 32MB buffer)
 │     ▼
-│  binário Go: /Users/augustosilva/.opencode/bin/mnemon
+│  binário Go: ~/.opencode/bin/mnemon (ou MNEMON_BIN)
 │     │  SQLite + Ollama embeddings (nomic-embed-text)
 │     ▼
 │  mnemon.db (MAGMA: insights, entities, edges, oplog)

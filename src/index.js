@@ -13,7 +13,7 @@ const path = require("path");
 const fs = require("fs");
 
 const pkg = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "package.json"), "utf8"));
-const MNEMON = "/Users/augustosilva/.opencode/bin/mnemon";
+const MNEMON = process.env.MNEMON_BIN || path.join(os.homedir(), ".opencode/bin/mnemon");
 const TIMEOUT = 60000;
 
 function run(args) {

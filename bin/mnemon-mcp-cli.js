@@ -14,6 +14,7 @@
  */
 const { spawn } = require("child_process");
 const path = require("path");
+const os = require("os");
 
 const SERVER = path.join(__dirname, "..", "src", "index.js");
 const [,, tool, ...rest] = process.argv;
@@ -113,7 +114,7 @@ child.stdout.on("data", (d) => {
     // Resiliência (diretiva 16-Ago: "usa sempre fallback locais").
     child.kill();
     const { execFileSync } = require("child_process");
-    const MNEMON = "/Users/augustosilva/.opencode/bin/mnemon";
+    const MNEMON = process.env.MNEMON_BIN || path.join(os.homedir(), ".opencode/bin/mnemon");
     const args = rest.slice();
     try {
       const out = execFileSync(MNEMON, args, { timeout: 60000, encoding: "utf8", maxBuffer: 32 * 1024 * 1024 });
